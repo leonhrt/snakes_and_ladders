@@ -4,11 +4,12 @@ public final class Board {
 	private ArrayList<Square> squares = new ArrayList<>();
 	private static final int MIN_NUM_SQUARES = 10;
 
-	public Board(int numSquares, int[][] ladders, int[][] snakes) {
+	public Board(int numSquares, int[][] ladders, int[][] snakes, int[] deathSquares) {
 		assert numSquares > MIN_NUM_SQUARES : "There must be at least " + MIN_NUM_SQUARES + " squares";
 		makeSquares(numSquares);
 		makeSnakesOrLadders(ladders);
 		makeSnakesOrLadders(snakes);
+		makeDeathSquares(deathSquares);
 	}
 
 	public Square firstSquare() {
@@ -37,6 +38,17 @@ public final class Board {
 			squares.add(square);
 		}
 		assert squares.get(numSquares-1).isLastSquare();
+	}
+
+	private void makeDeathSquares(int[] deathSquares) {
+		assert deathSquares.length > 0 : "There must be at least one death square";
+		assert deathSquares.length < squares.size() - 1 : "All squares can't be death squares";
+
+		for (int pos : deathSquares) {
+			assert pos < squares.size() && pos >= 0;
+			System.out.println("Death square: " + pos);
+			squares.set(pos - 1, new Death(pos, this));
+		}
 	}
 
 	private void makeSnakesOrLadders(int[][] toFrom) {

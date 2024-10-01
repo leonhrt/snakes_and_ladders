@@ -11,9 +11,10 @@ public class Main {
 	private static final int NUM_SQUARES = 12;
 	private static final int[][] SNAKES_FROM_TO = { {11,5} };
 	private static final int[][] LADDERS_FROM_TO = { {2,6} , {7,9} };
+	private static final int[] DEATH_SQUARES = {4, 8, 3, 2, 5, 6};
 
 	public static void main(String[] args) {
-		Game game = new Game(PLAYER_NAMES, NUM_SQUARES, SNAKES_FROM_TO, LADDERS_FROM_TO);
+		Game game = new Game(PLAYER_NAMES, NUM_SQUARES, SNAKES_FROM_TO, LADDERS_FROM_TO, DEATH_SQUARES);
 		game.play();
 	}
 }

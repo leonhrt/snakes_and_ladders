@@ -82,7 +82,7 @@ Game x--right--> "1" Board : board
 Board "1\nboard" *-down-> "10...*" Square : squares
 Game *-down-> "1..*" Player : players
 Game x-down-> "0,1" Player : winner
-Square -left-> "0,1" Player : player
-Player -right-> "1" Square : square
+Square -down-> "0,1" Player : player
+Player -up-> "1" Square : square
 FirstSquare -left-> "*" Player : players
 @enduml

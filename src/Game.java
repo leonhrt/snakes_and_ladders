@@ -6,9 +6,9 @@ public final class Game {
 	private Player winner;
 
 	public Game(String[] playerNames, int numSquares,
-				int[][] snakes, int[][] ladders) {
+				int[][] snakes, int[][] ladders, int[] deathSquares) {
 
-		makeBoard(numSquares, ladders, snakes);
+		makeBoard(numSquares, ladders, snakes, deathSquares);
 		makePlayers(playerNames);
 	}
 
@@ -28,11 +28,15 @@ public final class Game {
 			System.out.println("State : \n" + this);
 			numRounds++;
 		}
-		System.out.println(winner + " has won after " + numRounds + " rounds");
+		if (winner == null) {
+			System.out.println("All players have been eliminated, there's no winner.");
+		} else {
+			System.out.println(winner + " has won after " + numRounds + " rounds");
+		}
 	}
 
-	private void makeBoard(int numSquares, int[][] ladders, int[][] snakes) {
-		board = new Board(numSquares,ladders,snakes);
+	private void makeBoard(int numSquares, int[][] ladders, int[][] snakes, int[] deathSquares) {
+		board = new Board(numSquares, ladders, snakes, deathSquares);
 	}
 
 	private void makePlayers(String[] playerNames) {
@@ -59,12 +63,15 @@ public final class Game {
 	}
 
 	private boolean notOver() {
-		return (winner == null);
+		return winner == null && !players.isEmpty();
 	}
 
 	private void movePlayer(int roll) {
 		Player currentPlayer = players.remove(); // the first element of the list
 		currentPlayer.moveForward(roll);
+		if (currentPlayer.getPosition() == -1) {
+			return;
+		}
 		players.add(currentPlayer); // to the end of list, we're using the linked list as a queue
 		if (currentPlayer.wins()) {
 			winner = currentPlayer;
@@ -73,15 +80,15 @@ public final class Game {
 
 	@Override
 	public String toString() {
-		String str = new String();
+		StringBuilder str = new StringBuilder();
 		for (Player player : players) {
-			str += player.getName() + " is at square " + (player.getPosition()+1) + "\n";
+			str.append(player.getName()).append(" is at square ").append(player.getPosition() + 1).append("\n");
 		}
-		return str;
+		return str.toString();
 	}
 
 	private Player currentPlayer() {
-		assert players.size()>0;
+		assert !players.isEmpty();
 		return players.peek();
 	}
 }

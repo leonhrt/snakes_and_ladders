@@ -13,7 +13,7 @@ class Main {
 class Game {
     + Game(playerNames: String[], numSquares : int, \n\t    snakes : int[][], ladders : int[][])
     + play()
-    - makeBoard(numSquares : int, \n\t\t  snakes : int[][], ladders : int[][])
+    - makeBoard(numSquares : int, \n\t\t  snakes : int[][], ladders : int[][], deathSquares : int[])
     - makePlayers(names : String[])
     - initializeGame()
     - placePlayersAtFirstSquare()
@@ -24,12 +24,13 @@ class Game {
 
 class Board {
     - {static} MIN_NUM_SQUARES : int
-    + Board(numSquares : int, snakes : int[][], ladders : int[][])
+    + Board(numSquares : int, snakes : int[][], ladders : int[][], deathSquares : int[])
     + firstSquare() : Square
     + lastSquare() : Square
     + findSquare() : Square
     + numberOfSquares() : int
     - makeSnakesOrLadders(snakesOrLadders : int[][])
+    - makeDeathSquares(deathSquares : int[])
 }
 
 class Die {
@@ -63,6 +64,10 @@ class SnakeOrLadder extends Square {
     - transport : int
     # landHereOrGoHome() : Square
     - destination() : Square
+}
+
+class Death extends Square {
+    # landHereOrGoHome() : Square
 }
 
 class FirstSquare extends Square {
