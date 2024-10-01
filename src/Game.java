@@ -28,6 +28,7 @@ public final class Game {
 			System.out.println("State : \n" + this);
 			numRounds++;
 		}
+
 		if (!playersAlive()) {
 			System.out.println("All players have been eliminated, there's no winner.");
 		} else {
