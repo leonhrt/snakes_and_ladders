@@ -9,7 +9,7 @@ public final class Board {
 		makeSquares(numSquares);
 		makeSnakesOrLadders(ladders);
 		makeSnakesOrLadders(snakes);
-		makeDeathSquares(deathSquares);
+		makeDeaths(deathSquares);
 	}
 
 	public Square firstSquare() {
@@ -40,14 +40,13 @@ public final class Board {
 		assert squares.get(numSquares-1).isLastSquare();
 	}
 
-	private void makeDeathSquares(int[] deathSquares) {
-		assert deathSquares.length > 0 : "There must be at least one death square";
+	private void makeDeaths(int[] deathSquares) {
 		assert deathSquares.length < squares.size() - 1 : "All squares can't be death squares";
 
 		for (int pos : deathSquares) {
 			assert pos < squares.size() && pos >= 0;
 			System.out.println("Death square: " + pos);
-			squares.set(pos - 1, new Death(pos, this));
+			squares.set(pos - 1, new Death(pos - 1, this));
 		}
 	}
 

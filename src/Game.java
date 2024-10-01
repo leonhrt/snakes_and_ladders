@@ -21,18 +21,18 @@ public final class Game {
 
 		System.out.println("Initial state : \n" + this);
 		int numRounds = 0;
-		while (notOver()) {
+		while (notOver() && moreThanOnePlayerAlive()) {
 			int roll = die.roll();
 			System.out.println("Current player is " + currentPlayer() + " and rolls " + roll);
 			movePlayer(roll);
 			System.out.println("State : \n" + this);
 			numRounds++;
 		}
-		if (winner == null) {
-			System.out.println("All players have been eliminated, there's no winner.");
-		} else {
-			System.out.println(winner + " has won after " + numRounds + " rounds");
+		if (!moreThanOnePlayerAlive()) {
+			winner = players.get(0);
 		}
+
+		System.out.println(winner + " has won after " + numRounds + " rounds");
 	}
 
 	private void makeBoard(int numSquares, int[][] ladders, int[][] snakes, int[] deathSquares) {
@@ -63,13 +63,17 @@ public final class Game {
 	}
 
 	private boolean notOver() {
-		return winner == null && !players.isEmpty();
+		return winner == null;
+	}
+
+	private boolean moreThanOnePlayerAlive() {
+		return players.size() > 1;
 	}
 
 	private void movePlayer(int roll) {
 		Player currentPlayer = players.remove(); // the first element of the list
 		currentPlayer.moveForward(roll);
-		if (currentPlayer.getPosition() == -1) {
+		if (currentPlayer.isDead()) {
 			return;
 		}
 		players.add(currentPlayer); // to the end of list, we're using the linked list as a queue

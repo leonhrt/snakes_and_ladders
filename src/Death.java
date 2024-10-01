@@ -4,8 +4,9 @@ public class Death extends Square {
     }
 
     @Override
-    protected Square landHereOrGoHome() {
-        System.out.println("Death square landed: player is eliminated.");
-        return new Square(-1, board);
+    public void enter(Player p) {
+        System.out.println("Landed on death square, player eliminated.");
+        player = null;
+        p.setDead(true);
     }
 }
