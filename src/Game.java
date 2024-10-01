@@ -21,18 +21,18 @@ public final class Game {
 
 		System.out.println("Initial state : \n" + this);
 		int numRounds = 0;
-		while (notOver() && moreThanOnePlayerAlive()) {
+		while (notOver() && playersAlive()) {
 			int roll = die.roll();
 			System.out.println("Current player is " + currentPlayer() + " and rolls " + roll);
 			movePlayer(roll);
 			System.out.println("State : \n" + this);
 			numRounds++;
 		}
-		if (!moreThanOnePlayerAlive()) {
-			winner = players.get(0);
+		if (!playersAlive()) {
+			System.out.println("All players have been eliminated, there's no winner.");
+		} else {
+			System.out.println(winner + " has won after " + numRounds + " rounds");
 		}
-
-		System.out.println(winner + " has won after " + numRounds + " rounds");
 	}
 
 	private void makeBoard(int numSquares, int[][] ladders, int[][] snakes, int[] deathSquares) {
@@ -66,8 +66,8 @@ public final class Game {
 		return winner == null;
 	}
 
-	private boolean moreThanOnePlayerAlive() {
-		return players.size() > 1;
+	private boolean playersAlive() {
+		return !players.isEmpty();
 	}
 
 	private void movePlayer(int roll) {

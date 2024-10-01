@@ -18,6 +18,7 @@ class Game {
     - initializeGame()
     - placePlayersAtFirstSquare()
     - notOver() : boolean
+    - moreThanOnePlayerAlive() : boolean
     - movePlayer(roll : int)
     - currentPlayer() : Player
 }
@@ -30,7 +31,7 @@ class Board {
     + findSquare() : Square
     + numberOfSquares() : int
     - makeSnakesOrLadders(snakesOrLadders : int[][])
-    - makeDeathSquares(deathSquares : int[])
+    - makeDeaths(deathSquares : int[])
 }
 
 class Die {
@@ -55,8 +56,11 @@ class Square {
 
 class Player {
     - name : String
+    - dead : boolean
     + moveForward(moves : int)
     + getPosition() : int
+    + isDead() : boolean
+    + setDead(d : boolean)
     + wins() : boolean
 }
 
@@ -67,7 +71,7 @@ class SnakeOrLadder extends Square {
 }
 
 class Death extends Square {
-    # landHereOrGoHome() : Square
+    + enter(p : Player)
 }
 
 class FirstSquare extends Square {
