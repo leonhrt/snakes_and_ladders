@@ -45,7 +45,7 @@ public final class Board {
 
 		for (int pos : deathSquares) {
 			assert pos < squares.size() && pos >= 0;
-			System.out.println("Death square: " + pos);
+			System.out.println("death square at " + pos);
 			squares.set(pos - 1, new Death(pos - 1, this));
 		}
 	}
