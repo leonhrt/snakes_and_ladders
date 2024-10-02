@@ -18,7 +18,7 @@ class Game {
     - initializeGame()
     - placePlayersAtFirstSquare()
     - notOver() : boolean
-    - moreThanOnePlayerAlive() : boolean
+    - playersAlive() : boolean
     - movePlayer(roll : int)
     - currentPlayer() : Player
 }
